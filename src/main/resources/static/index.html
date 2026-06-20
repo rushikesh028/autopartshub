@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoPartsHub - Buy verified auto parts</title>
+    <meta name="description" content="Browse stocked auto parts, review fitment, and place an order from one storefront.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                ink: '#0E1116',
+                ink2: '#161B22',
+                paper: '#F2F3F5',
+                accent: '#C2410C',
+                accentdeep: '#9A3412',
+                accentdark: '#7C2D12',
+                accentlight: '#FB923C'
+              },
+              fontFamily: {
+                display: ['"Space Grotesk"', 'sans-serif'],
+                sans: ['Inter', 'sans-serif']
+              },
+              boxShadow: {
+                soft: '0 18px 44px rgba(15,23,42,0.08)',
+                softdark: '0 18px 44px rgba(0,0,0,0.35)'
+              }
+            }
+          }
+        };
+    </script>
+
+    <style>
+        :root { color-scheme: light; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Space Grotesk', sans-serif; }
+        .grid-dark {
+          background-color: #0E1116;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Ccircle cx='1.5' cy='1.5' r='1.5' fill='%23ffffff' fill-opacity='0.07'/%3E%3C/svg%3E");
+        }
+        .grid-light {
+          background-color: #F2F3F5;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Ccircle cx='1.5' cy='1.5' r='1.5' fill='%230E1116' fill-opacity='0.05'/%3E%3C/svg%3E");
+        }
+        a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+          outline: 2px solid #FB923C;
+          outline-offset: 3px;
+          border-radius: 4px;
+        }
+        .reveal { opacity: 0; transform: translateY(14px); transition: opacity 700ms ease, transform 700ms ease; }
+        .reveal.is-visible { opacity: 1; transform: translateY(0); }
+        @media (prefers-reduced-motion: reduce) {
+          .reveal { opacity: 1; transform: none; transition: none; }
+          html { scroll-behavior: auto; }
+        }
+        ::selection { background: #FB923C; color: #0E1116; }
+    </style>
+</head>
+<body class="bg-paper text-ink antialiased">
+
+<header id="siteHeader" class="fixed inset-x-0 top-0 z-50 border-b border-black/5 bg-paper/90 backdrop-blur-md transition-shadow">
+    <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:h-[72px] sm:px-8">
+        <a href="#top" class="flex items-center gap-2.5">
+            <span class="h-2.5 w-2.5 rounded-[2px] bg-accentdeep"></span>
+            <span class="font-display text-[1.05rem] font-700 tracking-tight sm:text-lg">AUTOPARTS<span class="text-accentdeep">HUB</span></span>
+        </a>
+
+        <nav class="hidden items-center gap-8 text-[0.93rem] font-medium text-ink/70 md:flex">
+            <a href="#catalog" class="transition-colors hover:text-ink">Catalog</a>
+            <a href="#workflow" class="transition-colors hover:text-ink">How it works</a>
+            <a href="#contact" class="transition-colors hover:text-ink">Contact</a>
+        </nav>
+
+        <div class="hidden items-center gap-3 md:flex">
+            <button id="headerCartButton" type="button" class="inline-flex items-center gap-2 rounded-[6px] border border-black/10 bg-white px-3 py-2 text-[0.93rem] font-semibold text-ink/80 transition-colors hover:text-ink">
+                <span>Cart</span>
+                <span id="headerCartCount" class="inline-flex min-w-6 items-center justify-center rounded-full bg-ink px-2 py-0.5 text-[0.72rem] text-white">0</span>
+            </button>
+            <button id="headerAuthButton" type="button" data-open-auth="login" class="px-3 py-2 text-[0.93rem] font-semibold text-ink/80 transition-colors hover:text-ink">Sign in</button>
+            <a href="#catalog" class="rounded-[6px] bg-accentdeep px-4 py-2.5 text-[0.93rem] font-semibold text-white shadow-sm transition-colors hover:bg-accentdark">Browse catalog</a>
+        </div>
+
+        <button id="menuToggle" type="button" aria-label="Open menu" aria-expanded="false" class="p-2 text-ink md:hidden">
+            <svg id="iconMenu" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <svg id="iconClose" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" class="hidden"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+        </button>
+    </div>
+
+    <div id="mobileMenu" class="hidden border-t border-black/5 bg-paper px-5 py-5 md:hidden">
+        <nav class="flex flex-col gap-1 text-[0.97rem] font-medium">
+            <a href="#catalog" class="border-b border-black/5 py-2.5">Catalog</a>
+            <a href="#workflow" class="border-b border-black/5 py-2.5">How it works</a>
+            <a href="#contact" class="border-b border-black/5 py-2.5">Contact</a>
+            <button id="mobileCartButton" type="button" class="border-b border-black/5 py-2.5 text-left">Cart (0)</button>
+            <button id="mobileAuthButton" type="button" data-open-auth="login" class="py-2.5 text-left">Sign in</button>
+        </nav>
+    </div>
+</header>
+
+<main id="top">
+    <section class="grid-dark overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-28">
+        <div class="mx-auto grid max-w-7xl items-center gap-14 px-5 sm:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
+            <div class="text-white">
+                <div class="mb-6 inline-flex items-center gap-2 text-[0.78rem] font-display font-600 uppercase tracking-[0.14em] text-accentlight">
+                    <span class="h-1.5 w-1.5 rounded-full bg-accentlight"></span>
+                    Verified fitment and real stock
+                </div>
+
+                <h1 class="font-display text-[2.5rem] font-700 leading-[1.06] tracking-tight sm:text-[3.4rem] lg:text-[3.75rem]">
+                    View the part.
+                    <br class="hidden sm:block">
+                    Buy the part.
+                </h1>
+
+                <p class="mt-6 max-w-[520px] text-[1.05rem] leading-relaxed text-white/65">
+                    This storefront now behaves like a real buying flow: live inventory, part detail, cart review, and checkout from the same screen.
+                </p>
+
+                <div class="mt-9 flex flex-wrap items-center gap-3.5">
+                    <a href="#catalog" class="inline-flex items-center gap-2 rounded-[6px] bg-accentdeep px-6 py-3.5 font-semibold text-white transition-colors hover:bg-accent">
+                        Browse stocked parts
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </a>
+                    <button type="button" data-open-auth="register" class="inline-flex items-center gap-2 rounded-[6px] border border-white/20 px-6 py-3.5 font-semibold text-white transition-colors hover:border-white/40">
+                        Create buyer account
+                    </button>
+                </div>
+
+                <div class="mt-12 grid max-w-[460px] grid-cols-3 border-t border-white/10 pt-7">
+                    <div class="pr-4">
+                        <div class="font-display text-2xl font-700 sm:text-[1.8rem]">Live</div>
+                        <div class="mt-1 text-[0.75rem] uppercase tracking-wide text-white/45">Inventory sync</div>
+                    </div>
+                    <div class="border-l border-white/10 px-4">
+                        <div class="font-display text-2xl font-700 sm:text-[1.8rem]">Cart</div>
+                        <div class="mt-1 text-[0.75rem] uppercase tracking-wide text-white/45">Add and review</div>
+                    </div>
+                    <div class="border-l border-white/10 pl-4">
+                        <div class="font-display text-2xl font-700 sm:text-[1.8rem]">Order</div>
+                        <div class="mt-1 text-[0.75rem] uppercase tracking-wide text-white/45">Checkout flow</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative">
+                <div class="rounded-[10px] border border-white/10 bg-ink2/70 p-5 shadow-softdark sm:p-7">
+                    <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                        <div>
+                            <p class="text-[0.72rem] font-display font-600 uppercase tracking-[0.14em] text-accentlight">Order surface</p>
+                            <h2 class="mt-1 font-display text-2xl font-700 text-white">What the buyer can do now</h2>
+                        </div>
+                        <span class="rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3 py-1 text-[0.78rem] font-semibold text-emerald-300">Ready</span>
+                    </div>
+
+                    <div class="mt-5 space-y-4">
+                        <div class="rounded-[8px] border border-white/10 bg-white/5 p-4">
+                            <p class="text-sm font-semibold text-white">1. Search and filter the catalog</p>
+                            <p class="mt-1 text-[0.9rem] leading-relaxed text-white/60">Search by part name, brand, or vehicle model, then narrow the result set before opening detail.</p>
+                        </div>
+                        <div class="rounded-[8px] border border-white/10 bg-white/5 p-4">
+                            <p class="text-sm font-semibold text-white">2. Open "View part"</p>
+                            <p class="mt-1 text-[0.9rem] leading-relaxed text-white/60">Each stocked item opens in a dedicated detail modal with fitment, price, stock, and quantity controls.</p>
+                        </div>
+                        <div class="rounded-[8px] border border-white/10 bg-white/5 p-4">
+                            <p class="text-sm font-semibold text-white">3. Add to cart and checkout</p>
+                            <p class="mt-1 text-[0.9rem] leading-relaxed text-white/60">The cart drawer loads from the backend and the checkout button places an order through the existing Spring endpoints.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="workflow" class="grid-light py-20 reveal sm:py-24">
+        <div class="mx-auto max-w-7xl px-5 sm:px-8">
+            <div class="mb-10 max-w-2xl">
+                <p class="mb-3 text-[0.78rem] font-display font-600 uppercase tracking-[0.14em] text-accentdeep">Store workflow</p>
+                <h2 class="font-display text-3xl font-700 leading-[1.1] tracking-tight sm:text-[2.4rem]">From browsing to order confirmation, all on one page.</h2>
+            </div>
+
+            <div class="grid gap-5 md:grid-cols-3">
+                <article class="bg-white p-6 shadow-soft">
+                    <div class="mb-5 flex items-center justify-between">
+                        <span class="font-display text-xl font-700 text-ink/15">01</span>
+                        <span class="rounded-full bg-accentlight/10 px-3 py-1 text-[0.74rem] font-semibold text-accentdeep">Catalog</span>
+                    </div>
+                    <h3 class="font-display text-[1.05rem] font-600">Choose the right part</h3>
+                    <p class="mt-2 text-[0.93rem] leading-relaxed text-ink/60">The listing is no longer decorative. It is driven by inventory and reacts to the filters above it.</p>
+                </article>
+                <article class="bg-white p-6 shadow-soft">
+                    <div class="mb-5 flex items-center justify-between">
+                        <span class="font-display text-xl font-700 text-ink/15">02</span>
+                        <span class="rounded-full bg-accentlight/10 px-3 py-1 text-[0.74rem] font-semibold text-accentdeep">Detail</span>
+                    </div>
+                    <h3 class="font-display text-[1.05rem] font-600">Review fitment and quantity</h3>
+                    <p class="mt-2 text-[0.93rem] leading-relaxed text-ink/60">View Part opens a real detail panel with quantity controls instead of a dead button.</p>
+                </article>
+                <article class="bg-white p-6 shadow-soft">
+                    <div class="mb-5 flex items-center justify-between">
+                        <span class="font-display text-xl font-700 text-ink/15">03</span>
+                        <span class="rounded-full bg-accentlight/10 px-3 py-1 text-[0.74rem] font-semibold text-accentdeep">Checkout</span>
+                    </div>
+                    <h3 class="font-display text-[1.05rem] font-600">Place the order</h3>
+                    <p class="mt-2 text-[0.93rem] leading-relaxed text-ink/60">The cart drawer totals the order and posts checkout to the backend, reducing stock after purchase.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="catalog" class="bg-white py-24 reveal sm:py-28">
+        <div class="mx-auto max-w-7xl px-5 sm:px-8">
+            <div class="mb-12 flex flex-wrap items-end justify-between gap-6">
+                <div class="max-w-xl">
+                    <p class="mb-3 text-[0.78rem] font-display font-600 uppercase tracking-[0.14em] text-accentdeep">Stocked now</p>
+                    <h2 class="font-display text-3xl font-700 leading-[1.1] tracking-tight sm:text-[2.5rem]">A catalog that behaves like a store, not a mockup.</h2>
+                </div>
+                <button type="button" id="openCartFromCatalog" class="inline-flex items-center gap-2 font-semibold text-accentdeep transition-colors hover:text-accent">
+                    Open cart
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </button>
+            </div>
+
+            <div class="mb-8 grid gap-5 lg:grid-cols-[minmax(0,1fr)_240px]">
+                <div class="grid gap-3 sm:grid-cols-[minmax(0,1fr)_220px]">
+                    <label class="block">
+                        <span class="sr-only">Search parts</span>
+                        <input id="catalogSearch" type="search" placeholder="Search by part name, brand, or vehicle" class="w-full rounded-[8px] border border-black/10 bg-paper px-4 py-3 text-[0.95rem] text-ink placeholder:text-ink/35">
+                    </label>
+                    <label class="block">
+                        <span class="sr-only">Filter by brand</span>
+                        <select id="brandFilter" class="w-full rounded-[8px] border border-black/10 bg-paper px-4 py-3 text-[0.95rem] text-ink">
+                            <option value="all">All brands</option>
+                        </select>
+                    </label>
+                </div>
+                <div id="catalogSummary" class="rounded-[10px] border border-black/8 bg-paper px-4 py-3 text-[0.9rem] text-ink/60">Loading inventory...</div>
+            </div>
+
+            <div id="catalogStatus" class="hidden mb-6 rounded-[10px] border border-dashed border-black/10 bg-paper px-5 py-4 text-[0.95rem] text-ink/60"></div>
+            <div id="catalogGrid" class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4"></div>
+        </div>
+    </section>
+
+    <section class="bg-accentdeep py-20 reveal sm:py-24">
+        <div class="mx-auto max-w-4xl px-5 text-center sm:px-8">
+            <h2 class="font-display text-3xl font-700 leading-[1.1] tracking-tight text-white sm:text-[2.6rem]">Sign in and finish the order from the same screen.</h2>
+            <p class="mx-auto mt-5 max-w-lg text-[1.02rem] text-white/75">Use the account modal to log in, then add parts and check out without leaving the storefront.</p>
+
+            <form id="ctaForm" class="mx-auto mt-9 flex max-w-md flex-col gap-3 sm:flex-row">
+                <label for="ctaEmail" class="sr-only">Email address</label>
+                <input id="ctaEmail" type="email" required placeholder="you@example.com" class="flex-1 rounded-[6px] border-0 bg-white px-4 py-3.5 text-ink placeholder:text-ink/40">
+                <button type="submit" class="whitespace-nowrap rounded-[6px] bg-ink px-6 py-3.5 font-semibold text-white transition-colors hover:bg-ink2">Get started</button>
+            </form>
+        </div>
+    </section>
+</main>
+
+<div id="partModal" class="fixed inset-0 z-[65] hidden" aria-hidden="true">
+    <div id="partModalBackdrop" class="absolute inset-0 bg-black/55"></div>
+    <div class="relative flex min-h-full items-center justify-center px-5 py-8">
+        <section class="w-full max-w-4xl overflow-hidden rounded-[10px] border border-black/10 bg-paper shadow-soft" role="dialog" aria-modal="true" aria-labelledby="partModalTitle">
+            <div class="grid lg:grid-cols-[1.1fr_0.9fr]">
+                <div class="bg-ink2">
+                    <img id="partModalImage" src="" alt="" class="h-full min-h-[280px] w-full object-cover">
+                </div>
+                <div class="p-6 sm:p-7">
+                    <div class="flex items-start justify-between gap-4">
+                        <div>
+                            <p id="partModalSku" class="text-[0.72rem] font-display font-600 uppercase tracking-[0.14em] text-accentdeep">Part</p>
+                            <h2 id="partModalTitle" class="mt-2 font-display text-2xl font-700 tracking-tight">Part detail</h2>
+                        </div>
+                        <button id="partModalClose" type="button" class="p-2 text-ink/60 hover:text-ink" aria-label="Close part detail">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+                        </button>
+                    </div>
+
+                    <div class="mt-4 flex flex-wrap gap-2 text-[0.8rem] text-ink/60">
+                        <span id="partModalBrand" class="rounded-full bg-white px-3 py-1"></span>
+                        <span id="partModalVehicle" class="rounded-full bg-white px-3 py-1"></span>
+                        <span id="partModalCategory" class="rounded-full bg-white px-3 py-1"></span>
+                    </div>
+
+                    <p id="partModalDescription" class="mt-5 text-[0.95rem] leading-relaxed text-ink/65"></p>
+
+                    <div class="mt-6 grid grid-cols-2 gap-4 rounded-[10px] border border-black/8 bg-white p-4">
+                        <div>
+                            <p class="text-[0.75rem] uppercase tracking-wide text-ink/40">Price</p>
+                            <p id="partModalPrice" class="mt-1 font-display text-2xl font-700"></p>
+                        </div>
+                        <div>
+                            <p class="text-[0.75rem] uppercase tracking-wide text-ink/40">Availability</p>
+                            <p id="partModalStock" class="mt-1 text-[0.95rem] font-semibold text-emerald-700"></p>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 flex items-center gap-3">
+                        <span class="text-[0.9rem] font-medium text-ink/70">Quantity</span>
+                        <div class="inline-flex items-center overflow-hidden rounded-[8px] border border-black/10 bg-white">
+                            <button id="quantityDecrement" type="button" class="px-3 py-2 text-lg leading-none text-ink/70 hover:bg-paper" aria-label="Decrease quantity">-</button>
+                            <input id="partQuantityInput" type="number" min="1" value="1" class="w-16 border-x border-black/10 bg-white px-2 py-2 text-center text-[0.95rem] font-semibold text-ink">
+                            <button id="quantityIncrement" type="button" class="px-3 py-2 text-lg leading-none text-ink/70 hover:bg-paper" aria-label="Increase quantity">+</button>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 grid gap-3 sm:grid-cols-2">
+                        <button id="addToCartButton" type="button" class="rounded-[8px] bg-accentdeep px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-accentdark">Add to cart</button>
+                        <button id="buyNowButton" type="button" class="rounded-[8px] border border-black/10 bg-white px-5 py-3 text-sm font-semibold text-ink transition-colors hover:bg-paper">Buy now</button>
+                    </div>
+
+                    <div id="partModalMessage" class="hidden mt-4 rounded-[8px] px-4 py-3 text-sm font-medium"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<div id="cartDrawer" class="fixed inset-0 z-[70] hidden" aria-hidden="true">
+    <div id="cartDrawerBackdrop" class="absolute inset-0 bg-black/45"></div>
+    <div class="relative ml-auto flex min-h-full w-full max-w-xl flex-col bg-paper shadow-soft">
+        <div class="flex items-start justify-between border-b border-black/8 px-6 py-5">
+            <div>
+                <p class="text-[0.72rem] font-display font-600 uppercase tracking-[0.14em] text-accentdeep">Cart</p>
+                <h2 class="mt-1 font-display text-2xl font-700 tracking-tight">Review the order</h2>
+                <p id="cartUserSummary" class="mt-2 text-[0.9rem] text-ink/55">Sign in to start adding parts.</p>
+            </div>
+            <button id="cartDrawerClose" type="button" class="p-2 text-ink/60 hover:text-ink" aria-label="Close cart">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+            </button>
+        </div>
+
+        <div class="flex-1 overflow-y-auto px-6 py-5">
+            <div id="cartNotice" class="hidden mb-4 rounded-[8px] px-4 py-3 text-sm font-medium"></div>
+            <div id="cartItems" class="space-y-3"></div>
+            <div id="cartEmptyState" class="rounded-[10px] border border-dashed border-black/10 bg-white px-5 py-8 text-[0.95rem] text-ink/55">
+                Your cart is empty. Open a part and add the quantity you want to order.
+            </div>
+        </div>
+
+        <div class="border-t border-black/8 px-6 py-5">
+            <div class="mb-4 flex items-center justify-between text-[0.95rem]">
+                <span class="text-ink/60">Estimated total</span>
+                <span id="cartTotal" class="font-display text-2xl font-700">Rs. 0</span>
+            </div>
+            <div class="grid gap-3 sm:grid-cols-2">
+                <button id="cartSignInButton" type="button" class="hidden rounded-[8px] border border-black/10 bg-white px-5 py-3 text-sm font-semibold text-ink transition-colors hover:bg-paper">Sign in to continue</button>
+                <button id="checkoutButton" type="button" class="rounded-[8px] bg-accentdeep px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-accentdark">Checkout</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="authModal" class="fixed inset-0 z-[60] hidden" aria-hidden="true">
+    <div id="authBackdrop" class="absolute inset-0 bg-black/55"></div>
+    <div class="relative flex min-h-full items-center justify-center px-5 py-8">
+        <section class="w-full max-w-xl overflow-hidden rounded-[10px] border border-black/10 bg-paper shadow-soft">
+            <div class="flex items-center justify-between border-b border-black/8 px-6 py-5">
+                <div>
+                    <p class="text-[0.72rem] font-display font-600 uppercase tracking-[0.14em] text-accentdeep">Account access</p>
+                    <h2 id="authTitle" class="mt-1 font-display text-2xl font-700 tracking-tight">Sign in</h2>
+                </div>
+                <button id="authClose" type="button" class="p-2 text-ink/60 hover:text-ink" aria-label="Close auth dialog">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+                </button>
+            </div>
+
+            <div class="px-6 pt-5">
+                <div class="inline-flex rounded-[6px] border border-black/10 bg-white p-1">
+                    <button id="loginTab" type="button" class="rounded-[4px] bg-ink px-4 py-2 text-sm font-semibold text-white">Sign in</button>
+                    <button id="registerTab" type="button" class="rounded-[4px] px-4 py-2 text-sm font-semibold text-ink/65">Create account</button>
+                </div>
+            </div>
+
+            <div class="p-6">
+                <form id="loginPanel" class="space-y-4">
+                    <div>
+                        <label for="loginEmailModal" class="mb-2 block text-sm font-medium text-ink/75">Email</label>
+                        <input id="loginEmailModal" type="email" required class="w-full rounded-[6px] border border-black/10 bg-white px-4 py-3 text-ink placeholder:text-ink/35" placeholder="you@example.com">
+                    </div>
+                    <div>
+                        <label for="loginPasswordModal" class="mb-2 block text-sm font-medium text-ink/75">Password</label>
+                        <input id="loginPasswordModal" type="password" required class="w-full rounded-[6px] border border-black/10 bg-white px-4 py-3 text-ink placeholder:text-ink/35" placeholder="Password">
+                    </div>
+                    <button type="submit" class="w-full rounded-[6px] bg-accentdeep px-6 py-3.5 font-semibold text-white transition-colors hover:bg-accentdark">Sign in</button>
+                </form>
+
+                <form id="registerPanel" class="hidden space-y-4">
+                    <div>
+                        <label for="registerNameModal" class="mb-2 block text-sm font-medium text-ink/75">Name</label>
+                        <input id="registerNameModal" type="text" required class="w-full rounded-[6px] border border-black/10 bg-white px-4 py-3 text-ink placeholder:text-ink/35" placeholder="Your name">
+                    </div>
+                    <div>
+                        <label for="registerEmailModal" class="mb-2 block text-sm font-medium text-ink/75">Email</label>
+                        <input id="registerEmailModal" type="email" required class="w-full rounded-[6px] border border-black/10 bg-white px-4 py-3 text-ink placeholder:text-ink/35" placeholder="you@example.com">
+                    </div>
+                    <div>
+                        <label for="registerPasswordModal" class="mb-2 block text-sm font-medium text-ink/75">Password</label>
+                        <input id="registerPasswordModal" type="password" required class="w-full rounded-[6px] border border-black/10 bg-white px-4 py-3 text-ink placeholder:text-ink/35" placeholder="Create password">
+                    </div>
+                    <button type="submit" class="w-full rounded-[6px] bg-accentdeep px-6 py-3.5 font-semibold text-white transition-colors hover:bg-accentdark">Create account</button>
+                </form>
+
+                <div id="authMessage" class="hidden mt-4 rounded-[6px] px-4 py-3 text-sm font-medium"></div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<footer id="contact" class="border-t border-black/8 bg-paper pt-16 pb-10">
+    <div class="mx-auto max-w-7xl px-5 sm:px-8">
+        <div class="grid gap-10 pb-12 sm:grid-cols-2 lg:grid-cols-5">
+            <div class="lg:col-span-2">
+                <div class="mb-4 flex items-center gap-2.5">
+                    <span class="h-2.5 w-2.5 rounded-[2px] bg-accentdeep"></span>
+                    <span class="font-display text-[1.05rem] font-700 tracking-tight">AUTOPARTS<span class="text-accentdeep">HUB</span></span>
+                </div>
+                <p class="max-w-xs text-[0.92rem] leading-relaxed text-ink/55">Genuine and aftermarket spare parts, catalogued and checked before order placement.</p>
+                <div class="mt-5 flex items-center gap-2 text-[0.88rem] text-ink/60">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+                    support@autopartshub.in
+                </div>
+                <div class="mt-2 flex items-center gap-2 text-[0.88rem] text-ink/60">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 6-9 12-9 12S3 16 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Mumbai, Maharashtra
+                </div>
+            </div>
+
+            <div>
+                <h4 class="mb-4 font-display text-[0.85rem] font-600 uppercase tracking-wide text-ink/40">Store</h4>
+                <ul class="space-y-3 text-[0.92rem] text-ink/65">
+                    <li><a href="#catalog" class="transition-colors hover:text-accentdeep">Catalog</a></li>
+                    <li><a href="#workflow" class="transition-colors hover:text-accentdeep">Buyer flow</a></li>
+                    <li><button type="button" data-open-auth="login" class="transition-colors hover:text-accentdeep">Sign in</button></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="mb-4 font-display text-[0.85rem] font-600 uppercase tracking-wide text-ink/40">Ordering</h4>
+                <ul class="space-y-3 text-[0.92rem] text-ink/65">
+                    <li><button type="button" id="footerCartButton" class="transition-colors hover:text-accentdeep">Open cart</button></li>
+                    <li><a href="#catalog" class="transition-colors hover:text-accentdeep">Stocked parts</a></li>
+                    <li><a href="#contact" class="transition-colors hover:text-accentdeep">Help center</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="mb-4 font-display text-[0.85rem] font-600 uppercase tracking-wide text-ink/40">Support</h4>
+                <ul class="space-y-3 text-[0.92rem] text-ink/65">
+                    <li><a href="#contact" class="transition-colors hover:text-accentdeep">Fitment guarantee</a></li>
+                    <li><a href="#contact" class="transition-colors hover:text-accentdeep">Returns</a></li>
+                    <li><a href="#contact" class="transition-colors hover:text-accentdeep">Dispatch support</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="flex flex-col items-center justify-between gap-3 border-t border-black/8 pt-7 sm:flex-row">
+            <p class="text-[0.82rem] text-ink/45">(c) 2026 AutoPartsHub. Orders remain subject to fitment verification.</p>
+            <div class="flex items-center gap-5 text-[0.82rem] text-ink/45">
+                <a href="#" class="transition-colors hover:text-ink/70">Privacy</a>
+                <a href="#" class="transition-colors hover:text-ink/70">Terms</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const iconMenu = document.getElementById('iconMenu');
+    const iconClose = document.getElementById('iconClose');
+    const ctaForm = document.getElementById('ctaForm');
+    const ctaEmail = document.getElementById('ctaEmail');
+    const authModal = document.getElementById('authModal');
+    const authBackdrop = document.getElementById('authBackdrop');
+    const authClose = document.getElementById('authClose');
+    const authTitle = document.getElementById('authTitle');
+    const loginTab = document.getElementById('loginTab');
+    const registerTab = document.getElementById('registerTab');
+    const loginPanel = document.getElementById('loginPanel');
+    const registerPanel = document.getElementById('registerPanel');
+    const authMessage = document.getElementById('authMessage');
+    const loginEmailModal = document.getElementById('loginEmailModal');
+    const loginPasswordModal = document.getElementById('loginPasswordModal');
+    const registerNameModal = document.getElementById('registerNameModal');
+    const registerEmailModal = document.getElementById('registerEmailModal');
+    const registerPasswordModal = document.getElementById('registerPasswordModal');
+    const headerAuthButton = document.getElementById('headerAuthButton');
+    const mobileAuthButton = document.getElementById('mobileAuthButton');
+    const headerCartButton = document.getElementById('headerCartButton');
+    const mobileCartButton = document.getElementById('mobileCartButton');
+    const footerCartButton = document.getElementById('footerCartButton');
+    const openCartFromCatalog = document.getElementById('openCartFromCatalog');
+    const headerCartCount = document.getElementById('headerCartCount');
+    const catalogGrid = document.getElementById('catalogGrid');
+    const catalogStatus = document.getElementById('catalogStatus');
+    const catalogSummary = document.getElementById('catalogSummary');
+    const catalogSearch = document.getElementById('catalogSearch');
+    const brandFilter = document.getElementById('brandFilter');
+    const partModal = document.getElementById('partModal');
+    const partModalBackdrop = document.getElementById('partModalBackdrop');
+    const partModalClose = document.getElementById('partModalClose');
+    const partModalImage = document.getElementById('partModalImage');
+    const partModalSku = document.getElementById('partModalSku');
+    const partModalTitle = document.getElementById('partModalTitle');
+    const partModalBrand = document.getElementById('partModalBrand');
+    const partModalVehicle = document.getElementById('partModalVehicle');
+    const partModalCategory = document.getElementById('partModalCategory');
+    const partModalDescription = document.getElementById('partModalDescription');
+    const partModalPrice = document.getElementById('partModalPrice');
+    const partModalStock = document.getElementById('partModalStock');
+    const partModalMessage = document.getElementById('partModalMessage');
+    const partQuantityInput = document.getElementById('partQuantityInput');
+    const quantityDecrement = document.getElementById('quantityDecrement');
+    const quantityIncrement = document.getElementById('quantityIncrement');
+    const addToCartButton = document.getElementById('addToCartButton');
+    const buyNowButton = document.getElementById('buyNowButton');
+    const cartDrawer = document.getElementById('cartDrawer');
+    const cartDrawerBackdrop = document.getElementById('cartDrawerBackdrop');
+    const cartDrawerClose = document.getElementById('cartDrawerClose');
+    const cartUserSummary = document.getElementById('cartUserSummary');
+    const cartNotice = document.getElementById('cartNotice');
+    const cartItems = document.getElementById('cartItems');
+    const cartEmptyState = document.getElementById('cartEmptyState');
+    const cartTotal = document.getElementById('cartTotal');
+    const cartSignInButton = document.getElementById('cartSignInButton');
+    const checkoutButton = document.getElementById('checkoutButton');
+
+    const demoCatalog = [
+      {
+        id: null,
+        sku: 'PN-30877',
+        partName: 'Ventilated Brake Disc',
+        brand: 'TORQLINE',
+        vehicleModel: 'Compact sedan',
+        price: 2450,
+        stock: 18,
+        description: 'High-heat ventilated rotor tuned for city braking and repeated highway stops.',
+        imageUrl: 'https://images.unsplash.com/photo-1611633235555-45e252fe48c8?auto=format&fit=crop&w=800&q=80',
+        category: { name: 'Brakes' }
+      },
+      {
+        id: null,
+        sku: 'PN-51420',
+        partName: 'Alternator Assembly',
+        brand: 'IRONHUB',
+        vehicleModel: 'Mid-size SUV',
+        price: 6900,
+        stock: 7,
+        description: 'Replacement alternator assembly built for reliable charging under daily load.',
+        imageUrl: 'https://images.unsplash.com/photo-1595787142842-7404bc60470d?auto=format&fit=crop&w=800&q=80',
+        category: { name: 'Electrical' }
+      },
+      {
+        id: null,
+        sku: 'PN-26611',
+        partName: 'Clutch Plate Kit',
+        brand: 'STEELWORKS AUTO',
+        vehicleModel: 'Hatchback',
+        price: 3150,
+        stock: 24,
+        description: 'Balanced clutch kit with pressure plate and release bearing for clean engagement.',
+        imageUrl: 'https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?auto=format&fit=crop&w=800&q=80',
+        category: { name: 'Drivetrain' }
+      },
+      {
+        id: null,
+        sku: 'PN-61004',
+        partName: 'Front Suspension Coil',
+        brand: 'REDLINE',
+        vehicleModel: 'Pickup',
+        price: 1980,
+        stock: 11,
+        description: 'Load-tuned front suspension coil that restores ride height and steering response.',
+        imageUrl: 'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=800&q=80',
+        category: { name: 'Suspension' }
+      },
+      {
+        id: null,
+        sku: 'PN-71230',
+        partName: 'Engine Oil Filter',
+        brand: 'VANFLEET MOTORS',
+        vehicleModel: 'All sedans',
+        price: 420,
+        stock: 56,
+        description: 'High-flow oil filter designed for daily service intervals and clean pressure retention.',
+        imageUrl: 'https://images.unsplash.com/photo-1522598140461-ec9911e01c53?auto=format&fit=crop&w=800&q=80',
+        category: { name: 'Engine' }
+      },
+      {
+        id: null,
+        sku: 'PN-83312',
+        partName: 'Halogen Headlight Assembly',
+        brand: 'NORTHBELT FLEET',
+        vehicleModel: 'Compact SUV',
+        price: 4250,
+        stock: 9,
+        description: 'Factory-style headlight assembly with clear beam pattern and sealed housing.',
+        imageUrl: 'https://images.unsplash.com/photo-1515569067071-ec3b51335dd0?auto=format&fit=crop&w=800&q=80',
+        category: { name: 'Lighting' }
+      },
+      {
+        id: null,
+        sku: 'PN-19044',
+        partName: 'Timing Belt Kit',
+        brand: 'STEELWORKS AUTO',
+        vehicleModel: 'Hatchback',
+        price: 2780,
+        stock: 14,
+        description: 'Complete timing belt kit for scheduled replacement before wear becomes failure.',
+        imageUrl: 'https://images.unsplash.com/photo-1663642775693-6628f65358be?auto=format&fit=crop&w=800&q=80',
+        category: { name: 'Engine' }
+      },
+      {
+        id: null,
+        sku: 'PN-95501',
+        partName: 'Car Battery 12V 65Ah',
+        brand: 'TORQLINE',
+        vehicleModel: 'All sedans',
+        price: 5600,
+        stock: 3,
+        description: 'Maintenance-free battery with strong cold-start current and roadside warranty support.',
+        imageUrl: 'https://images.unsplash.com/photo-1676337167629-d896b3ed5724?auto=format&fit=crop&w=800&q=80',
+        category: { name: 'Electrical' }
+      }
+    ];
+
+    const state = {
+      parts: [],
+      filteredParts: [],
+      selectedPart: null,
+      currentUser: readStoredUser(),
+      cart: { cartItems: [] }
+    };
+
+    function readStoredUser() {
+      try {
+        const rawUser = localStorage.getItem('autopartsHubUser');
+        return rawUser ? JSON.parse(rawUser) : null;
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function syncBodyLock() {
+      const hasOverlayOpen = !authModal.classList.contains('hidden')
+        || !partModal.classList.contains('hidden')
+        || !cartDrawer.classList.contains('hidden');
+      document.body.classList.toggle('overflow-hidden', hasOverlayOpen);
+    }
+
+    function formatCurrency(amount) {
+      return new Intl.NumberFormat('en-IN', {
+        style: 'currency',
+        currency: 'INR',
+        maximumFractionDigits: 0
+      }).format(amount || 0);
+    }
+
+    function resolveImageUrl(imageUrl) {
+      if (!imageUrl) {
+        return 'https://placehold.co/800x600/F2F3F5/0E1116?text=Part';
+      }
+
+      const normalized = String(imageUrl).trim();
+      if (normalized.startsWith('http://') || normalized.startsWith('https://') || normalized.startsWith('/')) {
+        return normalized;
+      }
+
+      return 'https://placehold.co/800x600/F2F3F5/0E1116?text=Part';
+    }
+
+    function getStockTone(stock) {
+      return stock <= 3 ? 'bg-amber-50 text-amber-700' : 'bg-emerald-50 text-emerald-700';
+    }
+
+    function setStatus(message, isError = false) {
+      if (!message) {
+        catalogStatus.classList.add('hidden');
+        catalogStatus.textContent = '';
+        return;
+      }
+      catalogStatus.textContent = message;
+      catalogStatus.className = `mb-6 rounded-[10px] border px-5 py-4 text-[0.95rem] ${isError ? 'border-red-200 bg-red-50 text-red-700' : 'border-black/8 bg-paper text-ink/60'}`;
+      catalogStatus.classList.remove('hidden');
+    }
+
+    function resetInlineMessage(element) {
+      element.classList.add('hidden');
+      element.textContent = '';
+      element.className = element.id === 'partModalMessage'
+        ? 'hidden mt-4 rounded-[8px] px-4 py-3 text-sm font-medium'
+        : element.id === 'authMessage'
+          ? 'hidden mt-4 rounded-[6px] px-4 py-3 text-sm font-medium'
+          : 'hidden mb-4 rounded-[8px] px-4 py-3 text-sm font-medium';
+    }
+
+    function setInlineMessage(element, message, isError = false) {
+      const spacing = element.id === 'partModalMessage' || element.id === 'authMessage' ? 'mt-4' : 'mb-4';
+      element.textContent = message;
+      element.className = `${spacing} rounded-[8px] px-4 py-3 text-sm font-medium ${isError ? 'bg-red-50 text-red-700' : 'bg-emerald-50 text-emerald-700'}`;
+      element.classList.remove('hidden');
+    }
+
+    async function apiRequest(path, options = {}) {
+      const response = await fetch(path, {
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          ...(options.body ? { 'Content-Type': 'application/json' } : {}),
+          ...(options.headers || {})
+        },
+        ...options
+      });
+
+      const contentType = response.headers.get('content-type') || '';
+      const rawBody = await response.text();
+      let body = rawBody;
+
+      if (rawBody) {
+        const looksLikeJson = contentType.includes('application/json')
+          || rawBody.trim().startsWith('{')
+          || rawBody.trim().startsWith('[');
+        if (looksLikeJson) {
+          try {
+            body = JSON.parse(rawBody);
+          } catch (error) {
+            body = rawBody;
+          }
+        }
+      }
+
+      if (!response.ok) {
+        const message = typeof body === 'string' ? body : body.message || 'Request failed';
+        const error = new Error(message);
+        error.status = response.status;
+        throw error;
+      }
+
+      return body;
+    }
+
+    function setAuthMode(mode) {
+      const isLogin = mode === 'login';
+      loginPanel.classList.toggle('hidden', !isLogin);
+      registerPanel.classList.toggle('hidden', isLogin);
+      loginTab.classList.toggle('bg-ink', isLogin);
+      loginTab.classList.toggle('text-white', isLogin);
+      loginTab.classList.toggle('text-ink/65', !isLogin);
+      registerTab.classList.toggle('bg-ink', !isLogin);
+      registerTab.classList.toggle('text-white', !isLogin);
+      registerTab.classList.toggle('text-ink/65', isLogin);
+      authTitle.textContent = isLogin ? 'Sign in' : 'Create account';
+      resetInlineMessage(authMessage);
+    }
+
+    function openAuthModal(mode = 'login', email = '') {
+      setAuthMode(mode);
+      authModal.classList.remove('hidden');
+      authModal.setAttribute('aria-hidden', 'false');
+      if (email) {
+        loginEmailModal.value = email;
+        registerEmailModal.value = email;
+      }
+      syncBodyLock();
+    }
+
+    function closeAuthModal() {
+      authModal.classList.add('hidden');
+      authModal.setAttribute('aria-hidden', 'true');
+      resetInlineMessage(authMessage);
+      syncBodyLock();
+    }
+
+    function openPartModal(part) {
+      state.selectedPart = part;
+      partQuantityInput.value = '1';
+      partModalImage.src = resolveImageUrl(part.imageUrl);
+      partModalImage.alt = part.partName;
+      partModalSku.textContent = part.sku || `PART-${part.id || 'DEMO'}`;
+      partModalTitle.textContent = part.partName;
+      partModalBrand.textContent = part.brand || 'Verified brand';
+      partModalVehicle.textContent = part.vehicleModel || 'Vehicle fitment on request';
+      partModalCategory.textContent = part.category && part.category.name ? part.category.name : 'General';
+      partModalDescription.textContent = part.description || 'Fitment-checked spare part ready for dispatch.';
+      partModalPrice.textContent = formatCurrency(part.price);
+      partModalStock.textContent = `${part.stock || 0} in stock`;
+      resetInlineMessage(partModalMessage);
+      partModal.classList.remove('hidden');
+      partModal.setAttribute('aria-hidden', 'false');
+      syncBodyLock();
+    }
+
+    function closePartModal() {
+      partModal.classList.add('hidden');
+      partModal.setAttribute('aria-hidden', 'true');
+      resetInlineMessage(partModalMessage);
+      syncBodyLock();
+    }
+
+    function openCartDrawer() {
+      cartDrawer.classList.remove('hidden');
+      cartDrawer.setAttribute('aria-hidden', 'false');
+      syncBodyLock();
+    }
+
+    function closeCartDrawer() {
+      cartDrawer.classList.add('hidden');
+      cartDrawer.setAttribute('aria-hidden', 'true');
+      syncBodyLock();
+    }
+
+    function closeMobileMenu() {
+      mobileMenu.classList.add('hidden');
+      iconMenu.classList.remove('hidden');
+      iconClose.classList.add('hidden');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    }
+
+    function updateSessionUi() {
+      const isSignedIn = Boolean(state.currentUser);
+      headerAuthButton.textContent = isSignedIn ? state.currentUser.name : 'Sign in';
+      mobileAuthButton.textContent = isSignedIn ? `Account: ${state.currentUser.name}` : 'Sign in';
+      cartUserSummary.textContent = isSignedIn
+        ? `${state.currentUser.name} (${state.currentUser.email})`
+        : 'Sign in to start adding parts.';
+      cartSignInButton.classList.toggle('hidden', isSignedIn);
+    }
+
+    function buildBrandOptions(parts) {
+      const brands = [...new Set(parts.map(part => part.brand).filter(Boolean))].sort();
+      brandFilter.innerHTML = '<option value="all">All brands</option>';
+      brands.forEach(brand => {
+        const option = document.createElement('option');
+        option.value = brand;
+        option.textContent = brand;
+        brandFilter.appendChild(option);
+      });
+    }
+
+    function dedupeParts(parts) {
+      const seen = new Set();
+      return parts.filter(part => {
+        const key = [
+          (part.partName || '').trim().toLowerCase(),
+          (part.brand || '').trim().toLowerCase(),
+          (part.vehicleModel || '').trim().toLowerCase()
+        ].join('|');
+
+        if (seen.has(key)) {
+          return false;
+        }
+
+        seen.add(key);
+        return true;
+      });
+    }
+
+    function renderCatalog() {
+      catalogGrid.innerHTML = '';
+      const totalStock = state.filteredParts.reduce((sum, part) => sum + (part.stock || 0), 0);
+      catalogSummary.textContent = `${state.filteredParts.length} parts visible | ${totalStock} units available`;
+
+      if (!state.filteredParts.length) {
+        setStatus('No parts match the current filter. Try another brand or search term.');
+      } else {
+        setStatus('');
+      }
+
+      state.filteredParts.forEach((part, index) => {
+        const card = document.createElement('article');
+        card.className = 'group rounded-[10px] border border-black/8 p-5 transition-all hover:border-accent/40 hover:shadow-soft';
+        card.innerHTML = `
+          <div class="mb-5 aspect-[4/3] overflow-hidden rounded-[7px] bg-ink2">
+            <img src="${resolveImageUrl(part.imageUrl)}" alt="${part.partName}" loading="lazy" class="h-full w-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0">
+          </div>
+          <div class="mb-1.5 flex items-center justify-between gap-3">
+            <span class="text-[0.68rem] font-display tracking-wide text-ink/35">${part.sku || `PART-${String(part.id || index + 1).padStart(4, '0')}`}</span>
+            <span class="rounded-full px-2 py-0.5 text-[0.7rem] font-semibold ${getStockTone(part.stock || 0)}">${part.stock || 0} in stock</span>
+          </div>
+          <h3 class="mb-1 font-display text-[1rem] font-600">${part.partName}</h3>
+          <p class="mb-4 text-[0.85rem] text-ink/55">${part.brand || 'Verified brand'} | Fits ${part.vehicleModel || 'multiple vehicles'}</p>
+          <div class="flex items-center justify-between gap-3">
+            <span class="font-display text-[1.15rem] font-700">${formatCurrency(part.price)}</span>
+            <button type="button" class="text-[0.85rem] font-semibold text-accentdeep transition-colors group-hover:text-accent" data-part-index="${index}">View part</button>
+          </div>
+        `;
+        catalogGrid.appendChild(card);
+      });
+    }
+
+    function applyCatalogFilters() {
+      const query = catalogSearch.value.trim().toLowerCase();
+      const selectedBrand = brandFilter.value;
+      state.filteredParts = state.parts.filter(part => {
+        const matchesQuery = !query
+          || part.partName.toLowerCase().includes(query)
+          || (part.vehicleModel || '').toLowerCase().includes(query)
+          || (part.brand || '').toLowerCase().includes(query);
+        const matchesBrand = selectedBrand === 'all' || part.brand === selectedBrand;
+        return matchesQuery && matchesBrand;
+      });
+      renderCatalog();
+    }
+
+    async function loadCatalog() {
+      setStatus('Loading inventory...');
+      try {
+        const parts = await apiRequest('/api/parts');
+        if (Array.isArray(parts) && parts.length) {
+          state.parts = dedupeParts(parts).map((part, index) => ({
+            ...part,
+            sku: `PART-${String(part.id || index + 1).padStart(4, '0')}`
+          }));
+          setStatus('');
+        } else {
+          state.parts = demoCatalog;
+          setStatus('Showing demo inventory because no backend parts exist yet.');
+        }
+      } catch (error) {
+        state.parts = demoCatalog;
+        setStatus('The API catalog is unavailable, so demo parts are shown for the storefront preview.', true);
+      }
+      buildBrandOptions(state.parts);
+      applyCatalogFilters();
+    }
+
+    function renderCart() {
+      const items = state.cart && Array.isArray(state.cart.cartItems) ? state.cart.cartItems : [];
+      cartItems.innerHTML = '';
+      cartEmptyState.classList.toggle('hidden', items.length > 0);
+
+      const lineItemCount = items.reduce((sum, item) => sum + (item.quantity || 0), 0);
+      const total = items.reduce((sum, item) => sum + ((item.quantity || 0) * ((item.sparePart && item.sparePart.price) || 0)), 0);
+
+      headerCartCount.textContent = String(lineItemCount);
+      mobileCartButton.textContent = `Cart (${lineItemCount})`;
+      cartTotal.textContent = formatCurrency(total);
+
+      items.forEach(item => {
+        const row = document.createElement('article');
+        row.className = 'rounded-[10px] border border-black/8 bg-white p-4';
+        row.innerHTML = `
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <h3 class="font-display text-[1rem] font-600">${item.sparePart.partName}</h3>
+              <p class="mt-1 text-[0.85rem] text-ink/55">${item.sparePart.brand || 'Verified brand'} | Qty ${item.quantity}</p>
+              <p class="mt-3 text-[0.92rem] font-semibold text-ink">${formatCurrency((item.sparePart.price || 0) * (item.quantity || 0))}</p>
+            </div>
+            <button type="button" class="text-[0.82rem] font-semibold text-accentdeep hover:text-accent" data-cart-remove-id="${item.id}">Remove</button>
+          </div>
+        `;
+        cartItems.appendChild(row);
+      });
+
+      updateSessionUi();
+    }
+
+    async function loadCart() {
+      if (!state.currentUser) {
+        state.cart = { cartItems: [] };
+        renderCart();
+        return;
+      }
+      try {
+        state.cart = await apiRequest(`/api/cart/${state.currentUser.id}`);
+      } catch (error) {
+        if (error.status === 404) {
+          state.cart = { cartItems: [] };
+        } else {
+          setInlineMessage(cartNotice, error.message, true);
+        }
+      }
+      renderCart();
+    }
+
+    function requireSignedIn(actionLabel) {
+      if (state.currentUser) {
+        return true;
+      }
+      openAuthModal('login', ctaEmail.value.trim());
+      setInlineMessage(authMessage, `Sign in to ${actionLabel}.`, true);
+      return false;
+    }
+
+    async function addSelectedPartToCart(openCartAfterAdd = false) {
+      if (!state.selectedPart) {
+        return;
+      }
+      if (!requireSignedIn('add parts to the cart')) {
+        return;
+      }
+      if (!state.selectedPart.id) {
+        setInlineMessage(partModalMessage, 'Demo parts cannot be checked out until they exist in backend inventory.', true);
+        return;
+      }
+
+      const quantity = Math.max(1, Number(partQuantityInput.value) || 1);
+      try {
+        await apiRequest('/api/cart/add', {
+          method: 'POST',
+          body: JSON.stringify({
+            userId: state.currentUser.id,
+            sparePartId: state.selectedPart.id,
+            quantity
+          })
+        });
+        setInlineMessage(partModalMessage, `${state.selectedPart.partName} added to cart.`);
+        await loadCart();
+        if (openCartAfterAdd) {
+          closePartModal();
+          openCartDrawer();
+        }
+      } catch (error) {
+        setInlineMessage(partModalMessage, error.message, true);
+      }
+    }
+
+    async function removeCartItem(cartItemId) {
+      try {
+        await apiRequest(`/api/cart/remove/${cartItemId}`, { method: 'DELETE' });
+        setInlineMessage(cartNotice, 'Item removed from cart.');
+        await loadCart();
+      } catch (error) {
+        setInlineMessage(cartNotice, error.message, true);
+      }
+    }
+
+    async function checkoutCart() {
+      if (!requireSignedIn('checkout')) {
+        return;
+      }
+      const items = state.cart && Array.isArray(state.cart.cartItems) ? state.cart.cartItems : [];
+      if (!items.length) {
+        setInlineMessage(cartNotice, 'Add at least one part before checkout.', true);
+        return;
+      }
+
+      try {
+        const order = await apiRequest(`/api/orders/checkout/${state.currentUser.id}`, { method: 'POST' });
+        setInlineMessage(cartNotice, `Order #${order.id} placed successfully.`);
+        await Promise.all([loadCart(), loadCatalog()]);
+      } catch (error) {
+        setInlineMessage(cartNotice, error.message, true);
+      }
+    }
+
+    menuToggle.addEventListener('click', () => {
+      const isOpen = !mobileMenu.classList.contains('hidden');
+      mobileMenu.classList.toggle('hidden');
+      iconMenu.classList.toggle('hidden');
+      iconClose.classList.toggle('hidden');
+      menuToggle.setAttribute('aria-expanded', String(!isOpen));
+    });
+
+    document.querySelectorAll('#mobileMenu a, #mobileMenu button').forEach(link => {
+      link.addEventListener('click', closeMobileMenu);
+    });
+
+    document.querySelectorAll('[data-open-auth]').forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        openAuthModal(trigger.getAttribute('data-open-auth') || 'login', ctaEmail.value.trim());
+      });
+    });
+
+    ctaForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      openAuthModal('register', ctaEmail.value.trim());
+    });
+
+    loginTab.addEventListener('click', () => setAuthMode('login'));
+    registerTab.addEventListener('click', () => setAuthMode('register'));
+    authClose.addEventListener('click', closeAuthModal);
+    authBackdrop.addEventListener('click', closeAuthModal);
+    partModalClose.addEventListener('click', closePartModal);
+    partModalBackdrop.addEventListener('click', closePartModal);
+    cartDrawerClose.addEventListener('click', closeCartDrawer);
+    cartDrawerBackdrop.addEventListener('click', closeCartDrawer);
+    headerCartButton.addEventListener('click', openCartDrawer);
+    mobileCartButton.addEventListener('click', openCartDrawer);
+    footerCartButton.addEventListener('click', openCartDrawer);
+    openCartFromCatalog.addEventListener('click', openCartDrawer);
+    cartSignInButton.addEventListener('click', () => openAuthModal('login', ctaEmail.value.trim()));
+    addToCartButton.addEventListener('click', () => addSelectedPartToCart(false));
+    buyNowButton.addEventListener('click', () => addSelectedPartToCart(true));
+    checkoutButton.addEventListener('click', checkoutCart);
+
+    quantityDecrement.addEventListener('click', () => {
+      partQuantityInput.value = String(Math.max(1, (Number(partQuantityInput.value) || 1) - 1));
+    });
+    quantityIncrement.addEventListener('click', () => {
+      const maxStock = state.selectedPart && state.selectedPart.stock ? state.selectedPart.stock : 99;
+      partQuantityInput.value = String(Math.min(maxStock, (Number(partQuantityInput.value) || 1) + 1));
+    });
+    partQuantityInput.addEventListener('input', () => {
+      const maxStock = state.selectedPart && state.selectedPart.stock ? state.selectedPart.stock : 99;
+      const quantity = Math.max(1, Math.min(maxStock, Number(partQuantityInput.value) || 1));
+      partQuantityInput.value = String(quantity);
+    });
+
+    catalogSearch.addEventListener('input', applyCatalogFilters);
+    brandFilter.addEventListener('change', applyCatalogFilters);
+
+    catalogGrid.addEventListener('click', (event) => {
+      const trigger = event.target.closest('[data-part-index]');
+      if (!trigger) {
+        return;
+      }
+      const index = Number(trigger.getAttribute('data-part-index'));
+      const part = state.filteredParts[index];
+      if (part) {
+        openPartModal(part);
+      }
+    });
+
+    cartItems.addEventListener('click', (event) => {
+      const trigger = event.target.closest('[data-cart-remove-id]');
+      if (!trigger) {
+        return;
+      }
+      removeCartItem(trigger.getAttribute('data-cart-remove-id'));
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape') {
+        return;
+      }
+      if (!cartDrawer.classList.contains('hidden')) {
+        closeCartDrawer();
+        return;
+      }
+      if (!partModal.classList.contains('hidden')) {
+        closePartModal();
+        return;
+      }
+      if (!authModal.classList.contains('hidden')) {
+        closeAuthModal();
+      }
+    });
+
+    loginPanel.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      resetInlineMessage(authMessage);
+      try {
+        const response = await apiRequest('/api/auth/login', {
+          method: 'POST',
+          body: JSON.stringify({
+            email: loginEmailModal.value.trim(),
+            password: loginPasswordModal.value
+          })
+        });
+        if (response.token) {
+          localStorage.setItem('autopartsHubToken', response.token);
+        }
+        if (response.user) {
+          localStorage.setItem('autopartsHubUser', JSON.stringify(response.user));
+          state.currentUser = response.user;
+        }
+        setInlineMessage(authMessage, response.message || 'Signed in successfully.');
+        loginPanel.reset();
+        updateSessionUi();
+        await loadCart();
+        window.setTimeout(closeAuthModal, 500);
+      } catch (error) {
+        setInlineMessage(authMessage, error.message, true);
+      }
+    });
+
+    registerPanel.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      resetInlineMessage(authMessage);
+      try {
+        const response = await apiRequest('/api/auth/register', {
+          method: 'POST',
+          body: JSON.stringify({
+            name: registerNameModal.value.trim(),
+            email: registerEmailModal.value.trim(),
+            password: registerPasswordModal.value
+          })
+        });
+        if (response.token) {
+          localStorage.setItem('autopartsHubToken', response.token);
+        }
+        if (response.user) {
+          localStorage.setItem('autopartsHubUser', JSON.stringify(response.user));
+          state.currentUser = response.user;
+        }
+        setInlineMessage(authMessage, response.message || 'Account created successfully.');
+        registerPanel.reset();
+        ctaForm.reset();
+        updateSessionUi();
+        await loadCart();
+        window.setTimeout(closeAuthModal, 500);
+      } catch (error) {
+        setInlineMessage(authMessage, error.message, true);
+      }
+    });
+
+    const header = document.getElementById('siteHeader');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('shadow-sm', window.scrollY > 8);
+    });
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReduced && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    } else {
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
+    }
+
+    updateSessionUi();
+    loadCatalog();
+    loadCart();
+</script>
+
+</body>
+</html>
