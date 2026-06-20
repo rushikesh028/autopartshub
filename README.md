@@ -1,26 +1,40 @@
 # AutoPartsHub
 
-AutoPartsHub is a Spring Boot-based e-commerce backend application for managing and purchasing automotive spare parts. The application provides secure JWT authentication, role-based authorization, product management, shopping cart operations, and order processing through RESTful APIs.
+AutoPartsHub is a Spring Boot-based e-commerce backend application designed for managing and purchasing automotive spare parts. The application provides secure JWT authentication, role-based access control, product management, shopping cart operations, and order processing through RESTful APIs.
 
-## Live Demo
+---
 
-Application URL:
+## 🚀 Live Demo
+
+**Railway Deployment**
 
 https://autopartshub.up.railway.app
 
-## Docker Image
+---
+
+## 🐳 Docker Hub
+
+Pull the Docker image:
 
 ```bash
 docker pull rushikesh0628/autopartshub:latest
 ```
 
-Run locally:
+Run the container:
 
 ```bash
 docker run -p 8081:8080 rushikesh0628/autopartshub:latest
 ```
 
-## Features
+Application URL:
+
+```text
+http://localhost:8081
+```
+
+---
+
+## ✨ Features
 
 * User Registration and Authentication
 * JWT-Based Authentication & Authorization
@@ -32,22 +46,40 @@ docker run -p 8081:8080 rushikesh0628/autopartshub:latest
 * RESTful API Architecture
 * MySQL Database Integration
 * Docker Containerization
-* Cloud Deployment on Railway
+* Cloud Deployment using Railway
 
-## Tech Stack
+---
+
+## 🛠 Tech Stack
+
+### Backend
 
 * Java 17
 * Spring Boot
 * Spring Security
-* JWT
+* JWT Authentication
 * Spring Data JPA
 * Hibernate
+
+### Database
+
 * MySQL
+
+### Build & Deployment
+
 * Maven
 * Docker
 * Railway
 
-## Project Structure
+### Tools
+
+* Git
+* GitHub
+* Postman
+
+---
+
+## 📁 Project Structure
 
 ```text
 src
@@ -58,16 +90,20 @@ src
 ├── dto
 ├── security
 ├── config
-└── exception
+├── exception
+└── util
 ```
 
-## Getting Started
+---
+
+## ⚙️ Getting Started
 
 ### Prerequisites
 
 * Java 17+
 * Maven
 * MySQL
+* Git
 
 ### Clone Repository
 
@@ -78,10 +114,14 @@ cd autopartshub
 
 ### Configure Database
 
+Update the `application.properties` file:
+
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/autopartshub
 spring.datasource.username=root
 spring.datasource.password=your_password
+
+spring.jpa.hibernate.ddl-auto=update
 ```
 
 ### Run Application
@@ -96,7 +136,20 @@ Application will start on:
 http://localhost:8080
 ```
 
-## API Modules
+---
+
+## 🔐 Security Features
+
+* JWT Authentication
+* BCrypt Password Encryption
+* Stateless Authentication
+* Protected REST Endpoints
+* Role-Based Authorization
+* Secure Login & Registration APIs
+
+---
+
+## 📦 API Modules
 
 ### Authentication
 
@@ -109,13 +162,22 @@ http://localhost:8080
 * Add Product
 * Update Product
 * Delete Product
-* View Products
+* Get Product Details
+* Search Products
+
+### Category Management
+
+* Create Category
+* Update Category
+* Delete Category
+* View Categories
 
 ### Cart Management
 
 * Add to Cart
 * Remove from Cart
 * Update Quantity
+* View Cart
 
 ### Order Management
 
@@ -123,14 +185,31 @@ http://localhost:8080
 * View Orders
 * Order History
 
-## Security
+---
 
-* JWT Authentication
-* BCrypt Password Encryption
-* Role-Based Authorization
-* Protected API Endpoints
+## 🐳 Docker Deployment
 
-## Deployment
+### Build Docker Image
+
+```bash
+docker build -t autopartshub .
+```
+
+### Run Docker Container
+
+```bash
+docker run -p 8081:8080 autopartshub
+```
+
+### Pull from Docker Hub
+
+```bash
+docker pull rushikesh0628/autopartshub:latest
+```
+
+---
+
+## ☁️ Cloud Deployment
 
 ### Railway
 
@@ -138,26 +217,51 @@ Live URL:
 
 https://autopartshub.up.railway.app
 
-### Docker Hub
+### Docker Hub Repository
 
-```bash
-docker pull rushikesh0628/autopartshub:latest
+```text
+rushikesh0628/autopartshub
 ```
 
-## Future Enhancements
+---
+
+## 🎯 Project Highlights
+
+* Developed a secure e-commerce backend for automotive spare parts.
+* Implemented JWT-based authentication and authorization.
+* Built scalable REST APIs following Spring Boot best practices.
+* Integrated MySQL using Spring Data JPA and Hibernate.
+* Containerized the application using Docker.
+* Published Docker image to Docker Hub.
+* Deployed the application on Railway for public access.
+
+---
+
+## 🚀 Future Enhancements
 
 * Payment Gateway Integration
-* Product Reviews & Ratings
+* Product Reviews and Ratings
 * Wishlist Functionality
 * Email Notifications
 * Admin Dashboard
-* Microservices Architecture
+* Order Tracking
 * CI/CD Pipeline Integration
+* Microservices Architecture
 
-## Author
+---
+
+## 👨‍💻 Author
 
 **Rushikesh Asawale**
 
 Java Backend Developer
 
 GitHub: https://github.com/rushikesh0628
+
+LinkedIn: Add your LinkedIn profile URL here
+
+---
+
+## ⭐ Support
+
+If you found this project useful, consider giving it a star on GitHub.
