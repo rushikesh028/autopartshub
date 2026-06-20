@@ -1,11 +1,29 @@
 # AutoPartsHub
 
-AutoPartsHub is a Spring Boot-based e-commerce backend application designed for managing and purchasing automotive spare parts. The application provides secure authentication, product management, cart operations, and order processing through RESTful APIs.
+AutoPartsHub is a Spring Boot-based e-commerce backend application for managing and purchasing automotive spare parts. The application provides secure JWT authentication, role-based authorization, product management, shopping cart operations, and order processing through RESTful APIs.
+
+## Live Demo
+
+Application URL:
+
+https://autopartshub.up.railway.app
+
+## Docker Image
+
+```bash
+docker pull rushikesh0628/autopartshub:latest
+```
+
+Run locally:
+
+```bash
+docker run -p 8081:8080 rushikesh0628/autopartshub:latest
+```
 
 ## Features
 
 * User Registration and Authentication
-* JWT-Based Security
+* JWT-Based Authentication & Authorization
 * Role-Based Access Control (Admin, Seller, Buyer)
 * Product Management
 * Category Management
@@ -14,6 +32,7 @@ AutoPartsHub is a Spring Boot-based e-commerce backend application designed for 
 * RESTful API Architecture
 * MySQL Database Integration
 * Docker Containerization
+* Cloud Deployment on Railway
 
 ## Tech Stack
 
@@ -26,6 +45,7 @@ AutoPartsHub is a Spring Boot-based e-commerce backend application designed for 
 * MySQL
 * Maven
 * Docker
+* Railway
 
 ## Project Structure
 
@@ -48,18 +68,15 @@ src
 * Java 17+
 * Maven
 * MySQL
-* Docker (Optional)
 
 ### Clone Repository
 
 ```bash
-git clone https://github.com/your-username/AutoPartsHub.git
-cd AutoPartsHub
+git clone https://github.com/rushikesh0628/autopartshub.git
+cd autopartshub
 ```
 
-### Database Configuration
-
-Update `application.properties`:
+### Configure Database
 
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/autopartshub
@@ -79,27 +96,7 @@ Application will start on:
 http://localhost:8080
 ```
 
-## Docker Support
-
-### Pull Docker Image
-
-```bash
-docker pull rushikesh0628/autopartshub:latest
-```
-
-### Run Container
-
-```bash
-docker run -p 8081:8080 rushikesh0628/autopartshub:latest
-```
-
-Application will be available at:
-
-```text
-http://localhost:8081
-```
-
-## API Features
+## API Modules
 
 ### Authentication
 
@@ -129,18 +126,33 @@ http://localhost:8081
 ## Security
 
 * JWT Authentication
-* Password Encryption using BCrypt
+* BCrypt Password Encryption
 * Role-Based Authorization
 * Protected API Endpoints
+
+## Deployment
+
+### Railway
+
+Live URL:
+
+https://autopartshub.up.railway.app
+
+### Docker Hub
+
+```bash
+docker pull rushikesh0628/autopartshub:latest
+```
 
 ## Future Enhancements
 
 * Payment Gateway Integration
-* Product Reviews and Ratings
+* Product Reviews & Ratings
 * Wishlist Functionality
 * Email Notifications
 * Admin Dashboard
-* Cloud Deployment
+* Microservices Architecture
+* CI/CD Pipeline Integration
 
 ## Author
 
