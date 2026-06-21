@@ -118,8 +118,8 @@ Update the `application.properties` file:
 
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/autopartshub
-spring.datasource.username=root
-spring.datasource.password=your_password
+spring.datasource.username=${DB_USERNAME}
+spring.datasource.password=${DB_PASSWORD}
 
 spring.jpa.hibernate.ddl-auto=update
 ```
