@@ -117,9 +117,10 @@ cd autopartshub
 Update the `application.properties` file:
 
 ```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/autopartshub
+spring.datasource.url=${DB_URL:jdbc:mysql://host.docker.internal:3306/autopartshub}
 spring.datasource.username=${DB_USERNAME}
 spring.datasource.password=${DB_PASSWORD}
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 
 spring.jpa.hibernate.ddl-auto=update
 ```
