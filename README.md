@@ -2,15 +2,6 @@
 
 AutoPartsHub is a Spring Boot-based e-commerce backend application designed for managing and purchasing automotive spare parts. The application provides secure JWT authentication, role-based access control, product management, shopping cart operations, and order processing through RESTful APIs.
 
----
-
-## 🚀 Live Demo
-
-**Railway Deployment**
-
-https://autopartshub.up.railway.app
-
----
 
 ## 🐳 Docker Hub
 
