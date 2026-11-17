@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0E1116;
+  --color-ink2: #161B22;
+  --color-paper: #F2F3F5;
+  --color-accent: #C2410C;
+  --color-accentdeep: #9A3412;
+  --color-accentdark: #7C2D12;
+  --color-accentlight: #FB923C;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-sans: Inter, sans-serif;
+  --shadow-soft: 0 18px 44px rgba(15, 23, 42, 0.08);
+  --shadow-softdark: 0 18px 44px rgba(0, 0, 0, 0.35);
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  antialiased: true;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.grid-dark {
+  background-color: #0E1116;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Ccircle cx='1.5' cy='1.5' r='1.5' fill='%23ffffff' fill-opacity='0.07'/%3E%3C/svg%3E");
+}
+
+.grid-light {
+  background-color: #F2F3F5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Ccircle cx='1.5' cy='1.5' r='1.5' fill='%230E1116' fill-opacity='0.05'/%3E%3C/svg%3E");
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid #FB923C;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 700ms ease, transform 700ms ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+::selection {
+  background: #FB923C;
+  color: #0E1116;
+}
